@@ -1,6 +1,13 @@
-import React from "react"
+import React, { useEffect } from "react"
+import gsap from "gsap"
 
 const Sidebar = () => {
+  useEffect(() => {
+    var tl = gsap.timeline({ defaults: { duration: 1 } })
+
+    tl.from(".sidebar-cnt .line", { height: 0 })
+    tl.from("a", { autoAlpha: 0, y: 30, stagger: 0.3 })
+  })
   return (
     <>
       <div className="sidebar-cnt">

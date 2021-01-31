@@ -1,13 +1,11 @@
-import React from "react"
-import { Link } from "gatsby"
-import { motion } from "framer-motion"
+import React, { useEffect } from "react"
+import gsap, { Power4 } from "gsap"
 
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
 import StepsDraggable from "../components/steps-draggable"
 import { TicketCircles } from "../images/svg.jsx"
-
 
 const IndexPage = () => (
   <Layout>
@@ -24,6 +22,19 @@ const IndexPage = () => (
 export default IndexPage
 
 const Hero = () => {
+  useEffect(() => {
+    var tl = gsap.timeline({ defaults: { ease: Power4, duration: 1 } })
+
+    tl.from("h1", { opacity: 0, y: 30, duration: 0.8, ease: { Power4 } })
+    tl.to(".hide-block", { skewX: -40, x: "100%", duration: 1.5 }, "-=.2")
+    tl.from(
+      ".hero .gatsby-image-wrapper",
+      { scale: 1.15, duration: 1.5 },
+      "-=1.8"
+    )
+    tl.from(".hero p", { autoAlpha: 0, stagger: 0.3 })
+  })
+
   return (
     <div className="hero-cnt">
       <div className="hero">
@@ -36,14 +47,19 @@ const Hero = () => {
               Fostering a deep sense of safety, trust, and love in
               relationships.
             </p>
-            <Image />
+            <div className="image-cnt">
+              <Image />
+              <div className="hide-block" />
+            </div>
           </div>
           <div className="flex column justify-end">
-            Intimate relationships have a way of excavating and pressing up
-            against our deepest wounds. Yet, they also hold the potential for
-            our deepest healing. The Nestling Process provides a pathway from
-            disconnection and painful triggers through to intimacy, healing, and
-            wholeness.
+            <p>
+              Intimate relationships have a way of excavating and pressing up
+              against our deepest wounds. Yet, they also hold the potential for
+              our deepest healing. The Nestling Process provides a pathway from
+              disconnection and painful triggers through to intimacy, healing,
+              and wholeness.
+            </p>
           </div>
         </div>
       </div>
@@ -57,10 +73,9 @@ const TheConcept = () => {
       <div className="theconcept-cnt margin flex justify-center align-center">
         <div className="medium theconcept">
           <div className="line" />
-
+          <h2>It's a conversation</h2>
           <p>
-            It's a conversation.
-            <br />
+            
             <br />
             The process works by learning to have a self-guided conversation
             with your partner using theraputic frameworks. <br />
@@ -84,7 +99,7 @@ const HowItGoes = () => {
               process, but for those who have already attended, or if you’d just
               like to give it a go, here’s the idea:
             </div>
-            
+
             <StepsDraggable />
           </div>
         </div>
@@ -115,9 +130,10 @@ const ComeNestle = () => {
               The first part of the workshop will be focussed on learning the
               Nestling Process and theory behind it, and then you’ll get an
               opportunity to have a guided experience of the process with a
-              partner. <br/><br/>
-               Together you will create a warm and secure relational
-              nest that will nourish and transform your relationships.
+              partner. <br />
+              <br />
+              Together you will create a warm and secure relational nest that
+              will nourish and transform your relationships.
             </p>
           </div>
         </div>
