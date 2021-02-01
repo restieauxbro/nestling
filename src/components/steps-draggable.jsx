@@ -4,7 +4,6 @@ import DragHand from "../components/drag-hand"
 
 const StepsDraggable = () => {
   const [explainerVisible, setExplainerVisible] = useState("visible")
-  const [width, setWidth] = useState("hi")
 
   const container = useRef(null)
 
@@ -21,11 +20,11 @@ const StepsDraggable = () => {
           ref={container}
           className="steps-draggable"
           drag="x"
-          dragConstraints={{ left: -3200, right: 0 }}
+          dragConstraints={{ left: -2800, right: 0 }}
           dragElastic={0.4}
           dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
         >
-          {steps.map(({ title, description, num, link }) => (
+          {steps.map(({ title, description, num }) => (
             <div
               className="step"
               onMouseEnter={() => setExplainerVisible("invisible")}
@@ -54,7 +53,7 @@ const steps = [
     num: 1,
     title: "Create the container",
     description:
-      "Choose a time frame and a place where you can connect without being interrupted. A comfy.",
+      "Choose a time frame and a place where you can connect without being interrupted.",
     link: "/",
   },
   {

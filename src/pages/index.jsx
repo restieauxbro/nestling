@@ -78,6 +78,7 @@ const TheConcept = () => {
       scrollTrigger: {
         trigger: ".theconcept",
         start: "top center+=100",
+        toggleActions: "play pause resume pause"
       },
     })
 
@@ -85,8 +86,9 @@ const TheConcept = () => {
       autoAlpha: 0,
       y: 50,
       stagger: 0.3,
+      duration: 1,
     })
-    tl.from(".theconcept .line", { height: 0 }, "-=.5")
+    tl.from(".theconcept .line", { height: 0 }, "-=.8")
   })
   return (
     <>
