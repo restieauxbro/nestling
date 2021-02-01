@@ -1,11 +1,14 @@
 import React, { useEffect } from "react"
 import gsap, { Power4 } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
 import StepsDraggable from "../components/steps-draggable"
 import { TicketCircles } from "../images/svg.jsx"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const IndexPage = () => (
   <Layout>
@@ -23,7 +26,9 @@ export default IndexPage
 
 const Hero = () => {
   useEffect(() => {
-    var tl = gsap.timeline({ defaults: { ease: Power4, duration: 1 } })
+    var tl = gsap.timeline({
+      defaults: { ease: Power4, duration: 1 },
+    })
 
     tl.from("h1", { opacity: 0, y: 30, duration: 0.8, ease: { Power4 } })
     tl.to(".hide-block", { skewX: -40, x: "100%", duration: 1.5 }, "-=.2")
@@ -68,6 +73,21 @@ const Hero = () => {
 }
 
 const TheConcept = () => {
+  useEffect(() => {
+    const tl = new gsap.timeline({
+      scrollTrigger: {
+        trigger: ".theconcept",
+        start: "top center+=100",
+      },
+    })
+
+    tl.from(".theconcept h2, .theconcept p", {
+      autoAlpha: 0,
+      y: 50,
+      stagger: 0.3,
+    })
+    tl.from(".theconcept .line", { height: 0 }, "-=.5")
+  })
   return (
     <>
       <div className="theconcept-cnt margin flex justify-center align-center">
@@ -75,7 +95,6 @@ const TheConcept = () => {
           <div className="line" />
           <h2>It's a conversation</h2>
           <p>
-            
             <br />
             The process works by learning to have a self-guided conversation
             with your partner using theraputic frameworks. <br />
@@ -109,6 +128,21 @@ const HowItGoes = () => {
 }
 
 const ComeNestle = () => {
+  useEffect(() => {
+    const tl = new gsap.timeline({
+      scrollTrigger: {
+        trigger: ".ticket-circles-cnt",
+        start: "top center+=100",
+      },
+    })
+
+    tl.from(".theconcept h2, .theconcept p", {
+      autoAlpha: 0,
+      y: 50,
+      stagger: 0.3,
+    })
+    tl.from(".theconcept .line", { height: 0 }, "-=.5")
+  })
   return (
     <div className="comenestle-cnt">
       <div className="margin">
@@ -122,7 +156,9 @@ const ComeNestle = () => {
               Auckland
             </p>
             <div className="ticket-circles-cnt">
-              <TicketCircles />
+              <a href="https://www.trybooking.com/nz/events/landing?eid=4163">
+                <TicketCircles />
+              </a>
             </div>
           </div>
           <div className="row-2">

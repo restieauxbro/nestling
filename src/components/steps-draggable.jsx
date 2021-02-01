@@ -1,9 +1,14 @@
-import React, { useState } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import { motion } from "framer-motion"
 import DragHand from "../components/drag-hand"
 
 const StepsDraggable = () => {
   const [explainerVisible, setExplainerVisible] = useState("visible")
+  const [width, setWidth] = useState("hi")
+
+  const container = useRef(null)
+
+
 
   return (
     <>
@@ -13,6 +18,7 @@ const StepsDraggable = () => {
       </div>
       <div className="steps-cnt">
         <motion.div
+          ref={container}
           className="steps-draggable"
           drag="x"
           dragConstraints={{ left: -3800, right: 0 }}
@@ -31,7 +37,7 @@ const StepsDraggable = () => {
                 <h3>{title}</h3>
                 <p>{description}</p>
 
-                <a href={link}>Read more</a>
+                <a href="/app">Read more</a>
               </article>
             </div>
           ))}
