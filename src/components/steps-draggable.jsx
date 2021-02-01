@@ -21,7 +21,7 @@ const StepsDraggable = () => {
           ref={container}
           className="steps-draggable"
           drag="x"
-          dragConstraints={{ left: -3800, right: 0 }}
+          dragConstraints={{ left: -3200, right: 0 }}
           dragElastic={0.4}
           dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
         >
@@ -37,7 +37,7 @@ const StepsDraggable = () => {
                 <h3>{title}</h3>
                 <p>{description}</p>
 
-                <a href="/app">Read more</a>
+                <a href="/">Read more</a>
               </article>
             </div>
           ))}

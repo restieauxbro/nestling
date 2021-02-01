@@ -123,6 +123,7 @@ main {
   padding: 0.6em 1.5em;
   border-radius: 1em;
   color: white;
+  cursor: pointer;
 }
 
 a {
@@ -147,7 +148,9 @@ a {
 }
 
 .hero-cnt {
-  min-height: 100vh;
+  @media (min-width: 700px) {
+    min-height: 100vh;
+  }
   position: relative;
   .hero {
     padding: 50px;
@@ -155,7 +158,7 @@ a {
       position: absolute;
       bottom: 0;
     }
-    @media (max-width: 700px){
+    @media (max-width: 700px) {
       padding: 30px;
     }
     .grid {
@@ -212,19 +215,23 @@ a {
 }
 
 .theconcept-cnt {
-  //min-height: 80vh;
+  padding-bottom: 2rem;
+  @media (min-width: 800px) {
+    min-height: 70vh;
+  }
 }
 .theconcept {
   position: relative;
+  margin-left: 2rem;
   p {
     margin: 0;
+    font-size: 1.5rem;
     @media (min-width: 1200px) {
-      font-size: 1.5rem;
     }
   }
   .line {
     position: absolute;
-    left: -40px;
+    left: -30px;
     top: 2%;
     height: 96%;
     width: 3px;
@@ -258,7 +265,7 @@ a {
       position: relative;
       pointer-events: none;
       &::after {
-        position: absolute;   
+        position: absolute;
         top: 0;
         right: 0;
         height: 100%;
@@ -296,9 +303,9 @@ a {
           // color: var(--white);
           // -webkit-text-stroke: 1px var(--dark-grey);
         }
-        @media (max-width: 700px){
+        @media (max-width: 700px) {
           min-width: 80vw;
-          &:first-child{
+          &:first-child {
             margin-left: 0;
           }
         }
@@ -328,6 +335,9 @@ a {
     &::after {
       position: absolute;
       content: "Workshop tickets";
+      color: var(--dark-blue);
+      text-transform: uppercase;
+      pointer-events: none;
       top: 50%;
       left: 50%;
       transform: translate(-65%, -50%) rotate(9deg);
@@ -339,4 +349,25 @@ a {
   fill: none;
   stroke: #333;
   stroke-miterlimit: 10;
+}
+
+.password-cnt {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  form {
+    display: flex;
+    flex-direction: column;
+    input {
+      margin-bottom: 1em;
+      border-radius: 1em;
+      padding: 0.5em;
+      border: 1px solid rgb(200, 200, 200);
+      &:focus {
+        outline: none;
+      }
+    }
+  }
 }

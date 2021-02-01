@@ -95,7 +95,7 @@ const TheConcept = () => {
           <div className="line" />
           <h2>It's a conversation</h2>
           <p>
-            <br />
+            
             The process works by learning to have a self-guided conversation
             with your partner using theraputic frameworks. <br />
             <br /> No therapist needed once you've had a walk through.
@@ -156,7 +156,7 @@ const ComeNestle = () => {
               Auckland
             </p>
             <div className="ticket-circles-cnt">
-              <a href="https://www.trybooking.com/nz/events/landing?eid=4163">
+              <a href="https://www.trybooking.com/nz/events/landing?eid=4163" style={{height: "100%"}}>
                 <TicketCircles />
               </a>
             </div>
