@@ -16,12 +16,12 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-sass`,
-    {
-      resolve: '@mkitio/gatsby-theme-password-protect',
-      options: {
-        password: 'yolo' // delete or `undefined` to disable password protection
-      }
-    },
+    // {
+    //   resolve: '@mkitio/gatsby-theme-password-protect',
+    //   options: {
+    //     password: 'yolo' // delete or `undefined` to disable password protection
+    //   }
+    // },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
