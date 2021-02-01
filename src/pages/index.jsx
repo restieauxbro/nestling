@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 const IndexPage = () => (
   <Layout>
-    <SEO title="Home" />
+    <SEO title="The Nestling Process" />
     <main className="main-content">
       <Hero />
       <TheConcept />
