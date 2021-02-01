@@ -30,7 +30,7 @@ const Hero = () => {
       defaults: { ease: Power4, duration: 1 },
     })
 
-    tl.from("h1", { opacity: 0, y: 30, duration: 0.8, ease: { Power4 } })
+    tl.from("h1", { autoAlpha: 0, y: 30, duration: 0.8, ease: { Power4 } })
     tl.to(".hide-block", { skewX: -40, x: "100%", duration: 1.5 }, "-=.2")
     tl.from(
       ".hero .gatsby-image-wrapper",
@@ -78,7 +78,8 @@ const TheConcept = () => {
       scrollTrigger: {
         trigger: ".theconcept",
         start: "top center+=100",
-        toggleActions: "play pause resume pause"
+        once: true,
+        //toggleActions: "restart pause resume restart"
       },
     })
 

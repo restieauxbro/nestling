@@ -13,7 +13,7 @@ const Sidebar = () => {
       <div className="sidebar-cnt">
         <div className="line" />
         <div className="sidebar-content">
-          <div></div>
+          <div className="desktop-placeholder"/>
           <div className="createdby-desktop">
             <p className="small-text">A process created by</p>
             <p className="tilt">
@@ -25,8 +25,7 @@ const Sidebar = () => {
             </p>
           </div>
           <div className="createdby-small">
-            <a href="ariamala.com">Ari Amala</a> &amp;{" "}
-            <a href="">Alexander Jenkins</a>
+            <a href="ariamala.com">Ari</a> &amp; <a href="">Alexander</a>
           </div>
           <div className="booking-cnt">
             <a
