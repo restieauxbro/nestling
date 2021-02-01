@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    title: `The Nestling Process`,
+    description: `A conversation framework for fostering a deep sense of safety, trust, and love in relationships.`,
     author: `@gatsbyjs`,
   },
   plugins: [
