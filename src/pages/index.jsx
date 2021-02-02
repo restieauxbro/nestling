@@ -1,14 +1,12 @@
-import React, { useEffect } from "react"
-import gsap, { Power4 } from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
+import React from "react"
+import { motion } from "framer-motion"
 
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
 import StepsDraggable from "../components/steps-draggable"
 import { TicketCircles } from "../images/svg.jsx"
-
-gsap.registerPlugin(ScrollTrigger)
+import { stagger, easeOut, item } from "../utils/animations"
 
 const IndexPage = () => (
   <Layout>
@@ -25,72 +23,54 @@ const IndexPage = () => (
 export default IndexPage
 
 const Hero = () => {
-  useEffect(() => {
-    var tl = gsap.timeline({
-      defaults: { ease: Power4, duration: 1 },
-    })
-
-    tl.from("h1", { autoAlpha: 0, y: 30, duration: 0.8, ease: { Power4 } })
-    tl.to(".hide-block", { skewX: -40, x: "100%", duration: 1.5 }, "-=.2")
-    tl.from(
-      ".hero .gatsby-image-wrapper",
-      { scale: 1.15, duration: 1.5 },
-      "-=1.8"
-    )
-    tl.from(".hero p", { autoAlpha: 0, stagger: 0.3 })
-  })
-
   return (
-    <div className="hero-cnt">
+    <motion.div
+      variants={stagger}
+      initial="initial"
+      animate="animate"
+      className="hero-cnt"
+    >
       <div className="hero">
         <div className="grid">
           <div className="row-1">
-            <h1>
+            <motion.h1 variants={item} initial="initial" animate="animate">
               The Nestling <br /> Process
-            </h1>
-            <p>
+            </motion.h1>
+            <motion.p variants={item} initial="initial" animate="animate">
               Fostering a deep sense of safety, trust, and love in
               relationships.
-            </p>
+            </motion.p>
             <div className="image-cnt">
               <Image />
-              <div className="hide-block" />
+              <motion.div
+                variants={swipeOut}
+                initial="initial"
+                animate="animate"
+                className="hide-block"
+              />
             </div>
           </div>
           <div className="flex column justify-end">
-            <p>
+            <motion.p variants={item}>
               Intimate relationships have a way of excavating and pressing up
               against our deepest wounds. Yet, they also hold the potential for
               our deepest healing. The Nestling Process provides a pathway from
               disconnection and painful triggers through to intimacy, healing,
               and wholeness.
-            </p>
+            </motion.p>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
-const TheConcept = () => {
-  useEffect(() => {
-    const tl = new gsap.timeline({
-      scrollTrigger: {
-        trigger: ".theconcept",
-        start: "top center+=100",
-        once: true,
-        //toggleActions: "restart pause resume restart"
-      },
-    })
+const swipeOut = {
+  initial: { x: 0 },
+  animate: { x: "80%", skewX: -25, transition: { duration: 1, ease: easeOut } },
+}
 
-    tl.from(".theconcept h2, .theconcept p", {
-      autoAlpha: 0,
-      y: 50,
-      stagger: 0.3,
-      duration: 1,
-    })
-    tl.from(".theconcept .line", { height: 0 }, "-=.8")
-  })
+const TheConcept = () => {
   return (
     <>
       <div className="theconcept-cnt margin flex justify-center align-center">
@@ -98,10 +78,8 @@ const TheConcept = () => {
           <div className="line" />
           <h2>It's a conversation</h2>
           <p>
-            
             The process works by learning to have a self-guided conversation
-            with your partner using theraputic frameworks. <br />
-            <br /> No therapist needed once you've had a walk through.
+            with your partner using theraputic frameworks.
           </p>
         </div>
       </div>
@@ -131,21 +109,6 @@ const HowItGoes = () => {
 }
 
 const ComeNestle = () => {
-  useEffect(() => {
-    const tl = new gsap.timeline({
-      scrollTrigger: {
-        trigger: ".ticket-circles-cnt",
-        start: "top center+=100",
-      },
-    })
-
-    tl.from(".theconcept h2, .theconcept p", {
-      autoAlpha: 0,
-      y: 50,
-      stagger: 0.3,
-    })
-    tl.from(".theconcept .line", { height: 0 }, "-=.5")
-  })
   return (
     <div className="comenestle-cnt">
       <div className="margin">
@@ -159,7 +122,10 @@ const ComeNestle = () => {
               Auckland
             </p>
             <div className="ticket-circles-cnt">
-              <a href="https://www.trybooking.com/nz/events/landing?eid=4163" style={{height: "100%"}}>
+              <a
+                href="https://www.trybooking.com/nz/events/landing?eid=4163"
+                style={{ height: "100%" }}
+              >
                 <TicketCircles />
               </a>
             </div>

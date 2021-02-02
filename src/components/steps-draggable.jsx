@@ -36,7 +36,7 @@ const StepsDraggable = () => {
                 <h3>{title}</h3>
                 <p>{description}</p>
 
-                <a href="/">Read more</a>
+                
               </article>
             </div>
           ))}
@@ -74,7 +74,7 @@ const steps = [
     num: 4,
     title: "Wholing Meditation",
     description:
-      "Tune into your resources of groundedness, compassion and wholeness through meditation or movement.",
+      "Tune into your resources of groundedness, compassion and wholeness through meditation or movement. We give examples in the workshop.",
     link: "/",
   },
 

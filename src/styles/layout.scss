@@ -5,6 +5,7 @@ html {
 }
 body {
   --dark-grey: rgb(46, 46, 46);
+  $red: rgb(230, 72, 72);
   --red: rgb(230, 72, 72);
   --yellow: rgb(230, 183, 72);
   --dark-blue: rgb(59, 82, 187);
@@ -41,12 +42,12 @@ h2 {
   width: 25%;
   max-width: 350px;
   height: 100%;
-  .line {
+  .desktop-line {
     position: absolute;
     right: 0;
-    height: 100%;
-    width: 1px;
-    background-color: var(--dark-grey);
+    height: 0;
+    width: 2px;
+    background-color: rgb(233, 221, 229);
   }
   .sidebar-content {
     padding: 40px;
@@ -57,7 +58,23 @@ h2 {
     .createdby-small {
       display: none;
     }
-    .booking-cnt {
+    .desktop-placeholder {
+      font-size: 12px;
+      padding-left: 20px;
+      color: inherit;
+      position: relative;
+      &::after {
+        position: absolute;
+        content: "";
+        top: -10px;
+        left: -20px;
+        width: 40px;
+        height: 40px;
+        background: url("https://img.icons8.com/pastel-glyph/64/000000/back.png");
+        background-position: center;
+        background-size: contain;
+        opacity: 0.65;
+      }
     }
   }
   @media (max-width: 1000px) {
@@ -91,10 +108,10 @@ h2 {
           display: none;
         }
       }
-      .button{
+      .button {
         margin-right: 30px;
       }
-      .desktop-placeholder{
+      .desktop-placeholder {
         display: none;
       }
     }
@@ -117,6 +134,7 @@ main {
 .upcoming-event {
   margin-top: 0.5em;
   font-size: 14px;
+  overflow: hidden;
 }
 
 .small-text {
@@ -131,6 +149,12 @@ main {
   border-radius: 1em;
   color: white;
   cursor: pointer;
+  transition: background-color .3s ease, box-shadow .5s ease;
+  &:hover {
+    background-color: darken(rgb(230, 72, 72), 5%);
+    box-shadow: 2px -3px 30px pink;
+    
+  }
 }
 
 a {
@@ -161,7 +185,7 @@ a {
   position: relative;
   .hero {
     padding: 50px;
-    @media (min-width: 1200px) {
+    @media (min-width: 1200px) and (min-height: 700px) {
       position: absolute;
       bottom: 0;
     }
@@ -181,7 +205,7 @@ a {
       overflow: hidden;
       .hide-block {
         position: absolute;
-        top: 0;
+        top: -5%;
         left: 0;
         width: 150%;
         height: 110%;
@@ -249,6 +273,10 @@ a {
 .howitgoes-cnt {
   background: rgb(246, 237, 243);
   padding: 7vw 0 0 0;
+  @media (max-width: 700px) {
+    padding-top: 3rem;
+    margin-top: 2rem;
+  }
   .howitgoes-content {
     .drag-hand-cnt {
       position: relative;
@@ -313,7 +341,6 @@ a {
           // -webkit-text-stroke: 1px var(--dark-grey);
         }
         @media (max-width: 700px) {
-          
           &:first-child {
             margin-left: 0;
           }
@@ -341,7 +368,7 @@ a {
   .ticket-circles-cnt {
     max-width: 500px;
     position: relative;
-    &::before{
+    &::before {
       content: "";
       position: absolute;
       right: 50%;

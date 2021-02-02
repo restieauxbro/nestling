@@ -1,46 +1,51 @@
-import React, { useEffect } from "react"
-import gsap from "gsap"
+import React from "react"
+import { motion } from "framer-motion"
+import { stagger, item, easeOut } from "../../utils/animations"
 
 const Sidebar = () => {
-  useEffect(() => {
-    var tl = gsap.timeline({ defaults: { duration: 1 } })
-
-    tl.from(".sidebar-cnt .line", { height: 0 })
-    tl.from(".sidebar-cnt a", { autoAlpha: 0, y: 30, stagger: 0.3 })
-  })
   return (
-    <>
-      <div className="sidebar-cnt">
-        <div className="line" />
-        <div className="sidebar-content">
-          <div className="desktop-placeholder"/>
-          <div className="createdby-desktop">
-            <p className="small-text">A process created by</p>
-            <p className="tilt">
-              <a href="ariamala.com">Ari Amala</a>
+    <div className="sidebar-cnt">
+     <motion.div animate={{height: "100%", transition: {duration: 1, ease: easeOut}}} className="desktop-line"/>
+      <motion.div
+        className="sidebar-content"
+        variants={stagger}
+        initial="initial"
+        animate="animate"
+      >
+        <div className="desktop-placeholder">
+          <a href="http://www.ariamala.com">AriAmala.com</a>
+        </div>
+        <div className="createdby-desktop">
+          <motion.p variants={item} className="small-text">
+            A process created by
+          </motion.p>
+          <motion.p variants={item} style={{fontSize: "14px"}}>
+            <div className="tilt">
+              Ari Amala
               <br />
               &amp;
               <br />
-              <a href="">Alexander Jenkins</a>
-            </p>
-          </div>
-          <div className="createdby-small">
-            <a href="ariamala.com">Ari</a> &amp; <a href="">Alexander</a>
-          </div>
-          <div className="booking-cnt">
-            <a
-              className="button"
-              href="https://www.trybooking.com/nz/events/landing?eid=4163"
-            >
-              Book now
-            </a>
-            <div className="upcoming-event" style={{ marginTop: `1.5em` }}>
-              Upcoming workshop in Auckland
+              Alexander Jenkins
             </div>
+          </motion.p>
+        </div>
+        <div className="createdby-small">
+          Ari &amp; Alexander
+        </div>
+        <div className="booking-cnt">
+          <a
+            className="button"
+            href="https://www.trybooking.com/nz/events/landing?eid=4163"
+          >
+            Book now
+          </a>
+          <div className="upcoming-event" style={{ marginTop: `1.5em` }}>
+            <motion.div initial={{x: "-100%"}} animate={{x: 0, transition: {duration: 1.5, ease: easeOut, delay: 9}}}>Upcoming workshop in Auckland</motion.div>
+            
           </div>
         </div>
-      </div>
-    </>
+      </motion.div>
+    </div>
   )
 }
 
