@@ -5,7 +5,10 @@ import { stagger, item, easeOut } from "../../utils/animations"
 const Sidebar = () => {
   return (
     <div className="sidebar-cnt">
-     <motion.div animate={{height: "100%", transition: {duration: 1, ease: easeOut}}} className="desktop-line"/>
+      <motion.div
+        animate={{ height: "100%", transition: { duration: 1, ease: easeOut } }}
+        className="desktop-line"
+      />
       <motion.div
         className="sidebar-content"
         variants={stagger}
@@ -19,7 +22,7 @@ const Sidebar = () => {
           <motion.p variants={item} className="small-text">
             A process created by
           </motion.p>
-          <motion.p variants={item} style={{fontSize: "14px"}}>
+          <motion.p variants={item} style={{ fontSize: "14px" }}>
             <div className="tilt">
               Ari Amala
               <br />
@@ -29,19 +32,24 @@ const Sidebar = () => {
             </div>
           </motion.p>
         </div>
-        <div className="createdby-small">
-          Ari &amp; Alexander
-        </div>
+        <div className="createdby-small">Ari &amp; Alexander</div>
         <div className="booking-cnt">
           <a
             className="button"
-            href="https://www.trybooking.com/nz/events/landing?eid=4163"
+            href="https://www.trybooking.com/nz/events/landing?eid=4288"
           >
             Book now
           </a>
           <div className="upcoming-event" style={{ marginTop: `1.5em` }}>
-            <motion.div initial={{x: "-100%"}} animate={{x: 0, transition: {duration: 1.5, ease: easeOut, delay: 9}}}>Upcoming workshop in Auckland</motion.div>
-            
+            <motion.div
+              initial={{ x: "-100%" }}
+              animate={{
+                x: 0,
+                transition: { duration: 1.5, ease: easeOut, delay: 9 },
+              }}
+            >
+              Upcoming workshop in Auckland
+            </motion.div>
           </div>
         </div>
       </motion.div>

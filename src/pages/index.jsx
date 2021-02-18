@@ -116,14 +116,14 @@ const ComeNestle = () => {
           <div className="row-1">
             <h2>Come nestle with us</h2>
             <p>
-              6th February <br />
-              2:00pm - 4:00pm <br />
+              27th February <br />
+              2:00pm - 4:30pm <br />
               Movespace, Dominion Road <br />
               Auckland
             </p>
             <div className="ticket-circles-cnt">
               <a
-                href="https://www.trybooking.com/nz/events/landing?eid=4163"
+                href="https://www.trybooking.com/nz/events/landing?eid=4288"
                 style={{ height: "100%" }}
               >
                 <TicketCircles />
