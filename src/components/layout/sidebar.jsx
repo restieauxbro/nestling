@@ -1,8 +1,19 @@
 import React from "react"
 import { motion } from "framer-motion"
 import { stagger, item, easeOut } from "../../utils/animations"
+import { graphql, useStaticQuery } from "gatsby"
 
 const Sidebar = () => {
+  const data = useStaticQuery(graphql`
+    query HeaderQuery {
+      site {
+        siteMetadata {
+          tickets
+        }
+      }
+    }
+  `)
+  const ticketsLink = data.site.siteMetadata.tickets
   return (
     <div className="sidebar-cnt">
       <motion.div
@@ -34,11 +45,8 @@ const Sidebar = () => {
         </div>
         <div className="createdby-small">Ari &amp; Alexander</div>
         <div className="booking-cnt">
-          <a
-            className="button"
-            href="https://www.trybooking.com/nz/events/landing?eid=4288"
-          >
-            Book now
+          <a className="button" href={ticketsLink}>
+            Register
           </a>
           <div className="upcoming-event" style={{ marginTop: `1.5em` }}>
             <motion.div
@@ -48,7 +56,7 @@ const Sidebar = () => {
                 transition: { duration: 1.5, ease: easeOut, delay: 9 },
               }}
             >
-              Upcoming workshop in Auckland
+              Upcoming online workshop
             </motion.div>
           </div>
         </div>
@@ -56,5 +64,4 @@ const Sidebar = () => {
     </div>
   )
 }
-
 export default Sidebar

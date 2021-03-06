@@ -1,5 +1,6 @@
 import React from "react"
-import { motion } from "framer-motion"
+import { graphql, useStaticQuery } from "gatsby"
+import { motion, transform } from "framer-motion"
 
 import Layout from "../components/layout"
 import Image from "../components/image"
@@ -8,14 +9,19 @@ import StepsDraggable from "../components/steps-draggable"
 import { TicketCircles } from "../images/svg.jsx"
 import { stagger, easeOut, item } from "../utils/animations"
 
-const IndexPage = () => (
+const IndexPage = ({ data }) => (
   <Layout>
     <SEO title="The Nestling Process" />
     <main className="main-content">
       <Hero />
       <TheConcept />
       <HowItGoes />
-      <ComeNestle />
+      <ComeNestle
+        link={data.site.siteMetadata.tickets}
+        day={data.site.siteMetadata.day}
+        time={data.site.siteMetadata.time}
+        location={data.site.siteMetadata.location}
+      />
     </main>
   </Layout>
 )
@@ -108,24 +114,24 @@ const HowItGoes = () => {
   )
 }
 
-const ComeNestle = () => {
+const ComeNestle = ({ link, day, time, location }) => {
   return (
     <div className="comenestle-cnt">
       <div className="margin">
         <div className="grid">
           <div className="row-1">
-            <h2>Come nestle with us</h2>
+            <h2>
+              Come nestle with us <br />
+              <div className="online">Online!</div>
+            </h2>
+
             <p>
-              27th February <br />
-              2:00pm - 4:30pm <br />
-              Movespace, Dominion Road <br />
-              Auckland
+              {day} <br />
+              {time} <br />
+              {location}
             </p>
             <div className="ticket-circles-cnt">
-              <a
-                href="https://www.trybooking.com/nz/events/landing?eid=4288"
-                style={{ height: "100%" }}
-              >
+              <a href={link} style={{ height: "100%" }}>
                 <TicketCircles />
               </a>
             </div>
@@ -146,3 +152,16 @@ const ComeNestle = () => {
     </div>
   )
 }
+
+export const query = graphql`
+  query HomePageQuery {
+    site {
+      siteMetadata {
+        tickets
+        day
+        time
+        location
+      }
+    }
+  }
+`

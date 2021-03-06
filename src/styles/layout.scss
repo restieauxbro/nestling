@@ -149,11 +149,10 @@ main {
   border-radius: 1em;
   color: white;
   cursor: pointer;
-  transition: background-color .3s ease, box-shadow .5s ease;
+  transition: background-color 0.3s ease, box-shadow 0.5s ease;
   &:hover {
     background-color: darken(rgb(230, 72, 72), 5%);
     box-shadow: 2px -3px 30px pink;
-    
   }
 }
 
@@ -352,6 +351,12 @@ a {
 
 .comenestle-cnt {
   padding: 6vw 0;
+  .online {
+    transform: skewX(-7deg);
+    margin: 0.5em 0;
+    font-size: 0.7em;
+    color: var(--red)
+  }
   .grid {
     display: grid;
     grid-template-columns: 2.3fr 1fr;
