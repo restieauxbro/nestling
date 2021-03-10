@@ -6,7 +6,7 @@ module.exports = {
     tickets: 'https://www.trybooking.com/nz/events/landing?eid=4405&',
     day: 'Saturday 27 March',
     time: '1:00PM to 3:30PM',
-    location: `We'll send you link`,
+    location: `We'll send you the link.`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

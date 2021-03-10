@@ -1,6 +1,6 @@
-import React from "react"
-import { graphql, useStaticQuery } from "gatsby"
-import { motion, transform } from "framer-motion"
+import React, { useContext } from "react"
+import { graphql } from "gatsby"
+import { motion } from "framer-motion"
 
 import Layout from "../components/layout"
 import Image from "../components/image"
@@ -8,6 +8,8 @@ import SEO from "../components/seo"
 import StepsDraggable from "../components/steps-draggable"
 import { TicketCircles } from "../images/svg.jsx"
 import { stagger, easeOut, item } from "../utils/animations"
+import { IntersectionObserver } from "../utils/intersection-observer"
+import { IntersectionContext } from "../utils/intersection-observer"
 
 const IndexPage = ({ data }) => (
   <Layout>
@@ -93,6 +95,20 @@ const TheConcept = () => {
   )
 }
 
+const TheConceptAnim = () => {
+  const { inView } = useContext(IntersectionContext)
+  return (
+    <div className="medium theconcept">
+      <div className="line" />
+      <h2>It's a conversation</h2>
+      <p>
+        The process works by learning to have a self-guided conversation with
+        your partner using theraputic frameworks.
+      </p>
+    </div>
+  )
+}
+
 const HowItGoes = () => {
   return (
     <>
@@ -100,6 +116,7 @@ const HowItGoes = () => {
         <div className="margin">
           <div className="howitgoes-content">
             <h2>How it goes</h2>
+
             <div className="medium">
               We recommend you attend one of our workshops to walk through the
               process, but for those who have already attended, or if you’d just
