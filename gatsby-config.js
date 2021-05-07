@@ -3,9 +3,9 @@ module.exports = {
     title: `The Nestling Process`,
     description: `A conversation framework for fostering a deep sense of safety, trust, and love in relationships.`,
     author: `@gatsbyjs`,
-    tickets: 'https://www.trybooking.com/nz/events/landing?eid=4405&',
-    day: 'Saturday 27 March',
-    time: '1:00PM to 3:30PM',
+    tickets: "https://www.trybooking.com/nz/events/landing?eid=4405&",
+    day: "Saturday 27 March",
+    time: "1:00PM to 3:30PM",
     location: `We'll send you the link.`,
   },
   plugins: [
@@ -41,5 +41,6 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
+    `gatsby-plugin-netlify-cms`,
   ],
 }
