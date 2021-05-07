@@ -1,0 +1,38 @@
+.live-document-cnt {
+  page {
+    display: block;
+    min-height: 70vh;
+  }
+}
+
+.pdf-maker-cnt {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  .column-1 {
+    h2 {
+      font-family: var(--font-paragraph);
+    }
+    .controls-cnt {
+      form {
+        padding: 30px;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        background-color: #fefbff;
+        margin-top: 40px;
+        .input {
+          display: flex;
+          flex-direction: column;
+        }
+        label {
+          margin-bottom: 10px;
+          font-weight: 700;
+        }
+        textarea {
+          border-radius: 5px;
+          border: 1px solid lightgray;
+          padding: 12px 18px;
+        }
+      }
+    }
+  }
+}
