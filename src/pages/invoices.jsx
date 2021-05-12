@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion"
 import {
   Document,
@@ -29,6 +29,11 @@ const PDFmaker = () => {
   })
 
   const [dataInWaiting, setDataInWaiting] = useState(pdfData)
+
+  const [isClient, setIsClient] = useState(false)
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   var typingTimer //timer identifier
   var doneTypingInterval = 500 // time in ms, 5 second for example
@@ -160,9 +165,11 @@ const PDFmaker = () => {
           </div>
         </div>
         <div className="column-2">
-          <PDFViewer style={{ width: "100%", height: "100vh" }}>
-            <MyDocument pdfData={pdfData} services={services} />
-          </PDFViewer>
+          {isClient && (
+            <PDFViewer style={{ width: "100%", height: "100vh" }}>
+              <MyDocument pdfData={pdfData} services={services} />
+            </PDFViewer>
+          )}
         </div>
       </div>
     </>
