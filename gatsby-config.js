@@ -20,6 +20,18 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-sass`,
+    {
+      resolve: `gatsby-plugin-less`,
+      options: {
+        lessOptions: {
+          modifyVars: {
+            "@border-radius-base": "5px",
+            "@font-size-base": "16px",
+          },
+          javascriptEnabled: true,
+        },
+      },
+    },
     // {
     //   resolve: '@mkitio/gatsby-theme-password-protect',
     //   options: {
@@ -41,6 +53,5 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
-    `gatsby-plugin-netlify-cms`,
   ],
 }

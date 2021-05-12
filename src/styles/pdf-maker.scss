@@ -7,31 +7,92 @@
 
 .pdf-maker-cnt {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
+  background-color: #eee;
+  height: auto;
+  @media (min-width: 1000px) {
+    overflow: hidden;
+    grid-template-columns: 1fr 1fr;
+    height: 100vh;
+    .column-1 {
+      height: 100vh;
+      overflow-y: auto;
+    }
+  }
   .column-1 {
+    .margin.x-small {
+      padding-top: 40px;
+    }
     h2 {
       font-family: var(--font-paragraph);
+      color: grey;
+      margin-bottom: 30px;
     }
     .controls-cnt {
+      padding: 30px;
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      background-color: #fbfbfb;
+      border-left: 10px solid var(--light-blue);
       form {
-        padding: 30px;
-        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
-        border-radius: 10px;
-        background-color: #fefbff;
-        margin-top: 40px;
-        .input {
-          display: flex;
-          flex-direction: column;
-        }
-        label {
-          margin-bottom: 10px;
-          font-weight: 700;
+        h4 {
+          margin: 20px 0 10px;
+          font-size: 12px;
+          color: grey;
         }
         textarea {
+          width: 100%;
+        }
+        textarea,
+        input[type="date"] {
           border-radius: 5px;
           border: 1px solid lightgray;
-          padding: 12px 18px;
+          padding: 7px 12px;
+          transition: border 0.5s ease;
+          &:focus {
+            outline: none;
+            border: 1px solid var(--pastel-blue);
+          }
         }
+      }
+      .service {
+        position: relative;
+        display: grid;
+        grid-template-columns: 2.2fr 1fr 1fr 0;
+        grid-gap: .5em;
+        padding: 12px 17px;
+        background: #ececec;
+        border-radius: 5px;
+        margin-bottom: 12px;
+        box-shadow: 3px 3px 4px -2px rgba(0, 0, 0, 0.3);
+        .exit-button {
+          font-size: 17px;
+          position: absolute;
+          right: 21px;
+          padding: 0px 9px 4px 9px;
+          border-radius: 100%;
+          background: #ccc;
+          font-weight: 700;
+          transform: rotate(45deg) translateY(-65%);
+          color: gray;
+          top: 50%;
+          cursor: pointer;
+          transition: 0.2s ease;
+          &:hover {
+            background: #f49696;
+            color: #b73e3e;
+          }
+        }
+      }
+      .add-new-cnt {
+        padding: 1em;
+        box-shadow: 3px 3px 36px -2px rgba(0, 0, 0, 0.3);
+        border-radius: 5px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1em;
       }
     }
   }
