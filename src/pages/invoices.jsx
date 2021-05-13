@@ -7,6 +7,7 @@ import {
   View,
   StyleSheet,
   PDFViewer,
+  PDFDownloadLink,
 } from "@react-pdf/renderer"
 import "../styles/App.less"
 import "../styles/pdf-maker.scss"
@@ -160,6 +161,22 @@ const PDFmaker = () => {
                     }
                   />
                 </form>
+                {isClient && (
+                  <PDFDownloadLink
+                    document={
+                      <MyDocument pdfData={pdfData} services={services} />
+                    }
+                    fileName={`invoice ${pdfData.date}.pdf`}
+                  >
+                    <Button
+                      size="large"
+                      type="primary"
+                      icon={<DownloadOutlined />}
+                    >
+                      Download
+                    </Button>
+                  </PDFDownloadLink>
+                )}
               </motion.div>
             </AnimateSharedLayout>
           </div>
@@ -224,7 +241,6 @@ const AddNewServiceForm = ({ addService, idNumber, changeIdNumber }) => {
           />
           <Button
             type="primary"
-            shape="round"
             icon={<CheckCircleFilled />}
             onClick={() => {
               changeIdNumber(idNumber + 1)
@@ -232,7 +248,7 @@ const AddNewServiceForm = ({ addService, idNumber, changeIdNumber }) => {
               addService(newService)
             }}
           >
-            Save
+            Add
           </Button>
         </div>
       </form>
@@ -247,7 +263,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: "#FAFAFA",
     padding: 30,
-    fontSize: 14,
+    fontSize: 12,
   },
   container: {
     position: "relative",
@@ -279,45 +295,48 @@ const styles = StyleSheet.create({
 // Create Document Component
 export const MyDocument = ({ pdfData, services }) => {
   return (
-    <>
-      <Document>
-        <Page size="A4" style={styles.page}>
-          <View style={styles.container}>
-            <View style={styles.flexDistribute}>
-              <View>
-                <Text>Ari Amala Counseling</Text>
-              </View>
-              <View>
-                <Text>{pdfData.date}</Text>
-              </View>
+    <Document
+      title="Invoice"
+      author="Ari Amala"
+      creator="Ari Amala"
+      producer="Ari Amala"
+    >
+      <Page size="A4" style={styles.page}>
+        <View style={styles.container}>
+          <View style={styles.flexDistribute}>
+            <View>
+              <Text>Ari Amala Counseling</Text>
             </View>
-            <View style={styles.section}>
-              <Text>{pdfData.person}</Text>
-            </View>
-            <View style={(styles.section, styles.message)}>
-              <Text>{pdfData.message}</Text>
-            </View>
-            <View style={styles.line} />
-            {services.map(({ name, duration, rate }) => (
-              <View>
-                <View style={styles.flexDistribute}>
-                  <Text>{name}</Text>
-                  <Text>{duration}</Text>
-                  <Text>${rate}</Text>
-                </View>
-                <View style={styles.line} />
-              </View>
-            ))}
-            <View style={styles.section}>
-              <Text>Section #2</Text>
-            </View>
-            <View style={styles.section}>
-              <Text>{pdfData.bank}</Text>
+            <View>
+              <Text>{pdfData.date}</Text>
             </View>
           </View>
-        </Page>
-      </Document>
-    </>
+          <View style={styles.section}>
+            <Text>{pdfData.person}</Text>
+          </View>
+          <View style={(styles.section, styles.message)}>
+            <Text>{pdfData.message}</Text>
+          </View>
+          <View style={styles.line} />
+          {services.map(({ name, duration, rate }) => (
+            <View>
+              <View style={styles.flexDistribute}>
+                <Text style={{ width: "70%", paddingRight: 10 }}>{name}</Text>
+                <Text style={{ width: "15%" }}>{duration}</Text>
+                <Text style={{ width: "15%", textAlign: "right" }}>
+                  ${rate}
+                </Text>
+              </View>
+              <View style={styles.line} />
+            </View>
+          ))}
+
+          <View style={styles.section}>
+            <Text>{pdfData.bank}</Text>
+          </View>
+        </View>
+      </Page>
+    </Document>
   )
 }
 

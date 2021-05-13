@@ -34,6 +34,7 @@
       border-radius: 10px;
       background-color: #fbfbfb;
       border-left: 10px solid var(--light-blue);
+      margin-bottom: 30px;
       form {
         h4 {
           margin: 20px 0 10px;
@@ -58,8 +59,8 @@
       .service {
         position: relative;
         display: grid;
-        grid-template-columns: 2.2fr 1fr 1fr 0;
-        grid-gap: .5em;
+        grid-template-columns: 2.2fr 1fr 0.75fr 0;
+        grid-gap: 2em;
         padding: 12px 17px;
         background: #ececec;
         border-radius: 5px;
