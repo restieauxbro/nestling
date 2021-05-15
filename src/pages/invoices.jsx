@@ -233,7 +233,7 @@ const AddNewServiceForm = ({ addService, idNumber, changeIdNumber }) => {
           />
 
           <Input
-            placeholder="Amount"
+            placeholder="Rate"
             prefix={<DollarOutlined twoToneColor="#52c41a" />}
             onChange={e =>
               setNewService({ ...newService, rate: e.target.value })
