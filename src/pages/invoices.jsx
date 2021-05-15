@@ -304,7 +304,7 @@ export const MyDocument = ({ pdfData, services }) => {
       <Page size="A4" style={styles.page}>
         <View style={styles.container}>
           <View style={styles.flexDistribute}>
-            <View>
+            <View style={{ marginBottom: 20 }}>
               <Text>Ari Amala Counseling</Text>
             </View>
             <View>
@@ -314,7 +314,7 @@ export const MyDocument = ({ pdfData, services }) => {
           <View style={styles.section}>
             <Text>{pdfData.person}</Text>
           </View>
-          <View style={(styles.section, styles.message)}>
+          <View style={{ ...styles.section, ...styles.message }}>
             <Text>{pdfData.message}</Text>
           </View>
           <View style={styles.line} />
@@ -331,8 +331,8 @@ export const MyDocument = ({ pdfData, services }) => {
             </View>
           ))}
 
-          <View style={styles.section}>
-            <Text>{pdfData.bank}</Text>
+          <View style={{ ...styles.section, marginTop: 20 }}>
+            <Text>Payable to {pdfData.bank}</Text>
           </View>
         </View>
       </Page>
