@@ -32,9 +32,12 @@ const PDFmaker = () => {
   const [dataInWaiting, setDataInWaiting] = useState(pdfData)
 
   const [isClient, setIsClient] = useState(false)
+
   useEffect(() => {
     setIsClient(true)
   }, [])
+
+  //#region Typing handler
 
   var typingTimer //timer identifier
   var doneTypingInterval = 500 // time in ms, 5 second for example
@@ -54,6 +57,7 @@ const PDFmaker = () => {
       bank: dataInWaiting.bank,
     })
   }
+  //#endregion
 
   const [services, changeServicesList] = useState([
     {
@@ -63,6 +67,8 @@ const PDFmaker = () => {
       id: "service-1",
     },
   ])
+
+  const servicesTotal = services.reduce((prev, cur) => prev + cur.rate, 0)
 
   const [idNumber, changeIdNumber] = useState(3)
 
@@ -74,6 +80,12 @@ const PDFmaker = () => {
   function deleteService(id) {
     const remainingServices = services.filter(service => id !== service.id)
     changeServicesList(remainingServices)
+  }
+
+  function handleOnEnterKey(event, newService) {
+    if (event.key === "Enter") {
+      addService(newService)
+    }
   }
 
   return (
@@ -131,22 +143,23 @@ const PDFmaker = () => {
                   </textarea>
 
                   <h4>Services</h4>
-
-                  {services.map(({ name, duration, rate, id }) => (
-                    <Service
-                      key={uuid()}
-                      description={name}
-                      duration={duration}
-                      rate={rate}
-                      id={id}
-                      deleteService={deleteService}
-                    />
-                  ))}
-
+                  <AnimatePresence exitBeforeEnter>
+                    {services.map(({ name, duration, rate, id }) => (
+                      <Service
+                        key={uuid()}
+                        description={name}
+                        duration={duration}
+                        rate={rate}
+                        id={id}
+                        deleteService={deleteService}
+                      />
+                    ))}
+                  </AnimatePresence>
                   <AddNewServiceForm
                     addService={addService}
                     idNumber={idNumber}
                     changeIdNumber={changeIdNumber}
+                    handleOnEnterKey={handleOnEnterKey}
                   />
                   <h4>Bank details</h4>
                   <Input
@@ -161,22 +174,29 @@ const PDFmaker = () => {
                     }
                   />
                 </form>
-                {isClient && (
-                  <PDFDownloadLink
-                    document={
-                      <MyDocument pdfData={pdfData} services={services} />
-                    }
-                    fileName={`invoice ${pdfData.date}.pdf`}
-                  >
-                    <Button
-                      size="large"
-                      type="primary"
-                      icon={<DownloadOutlined />}
+                <div className="flex space-between align-center">
+                  {isClient && (
+                    <PDFDownloadLink
+                      document={
+                        <MyDocument
+                          pdfData={pdfData}
+                          services={services}
+                          servicesTotal={servicesTotal}
+                        />
+                      }
+                      fileName={`invoice ${pdfData.date}.pdf`}
                     >
-                      Download
-                    </Button>
-                  </PDFDownloadLink>
-                )}
+                      <Button
+                        size="large"
+                        type="primary"
+                        icon={<DownloadOutlined />}
+                      >
+                        Download
+                      </Button>
+                    </PDFDownloadLink>
+                  )}
+                  <div>Total: ${servicesTotal}</div>
+                </div>
               </motion.div>
             </AnimateSharedLayout>
           </div>
@@ -184,7 +204,11 @@ const PDFmaker = () => {
         <div className="column-2">
           {isClient && (
             <PDFViewer style={{ width: "100%", height: "100vh" }}>
-              <MyDocument pdfData={pdfData} services={services} />
+              <MyDocument
+                pdfData={pdfData}
+                services={services}
+                servicesTotal={servicesTotal}
+              />
             </PDFViewer>
           )}
         </div>
@@ -195,19 +219,35 @@ const PDFmaker = () => {
 
 const Service = ({ deleteService, description, duration, rate, id }) => {
   return (
-    <motion.div id={id} className="service">
-      <div>{description}</div>
-      <div>{duration}</div>
-      <div>${rate}</div>
-      <div></div>
-      <div className="exit-button" onClick={() => deleteService(id)}>
-        +
-      </div>
+    <motion.div
+      initial={{ height: 0 }}
+      animate={{ height: "auto", transition: { duration: 0.7 } }}
+      exit={{ height: 0, transition: { duration: 0.5 } }}
+      style={{
+        overflow: "hidden",
+        paddingRight: 10,
+        width: "calc(100% + 10px)",
+      }}
+    >
+      <motion.div id={id} className="service">
+        <div>{description}</div>
+        <div>{duration}</div>
+        <div>${rate}</div>
+        <div></div>
+        <div className="exit-button" onClick={() => deleteService(id)}>
+          +
+        </div>
+      </motion.div>
     </motion.div>
   )
 }
 
-const AddNewServiceForm = ({ addService, idNumber, changeIdNumber }) => {
+const AddNewServiceForm = ({
+  addService,
+  idNumber,
+  changeIdNumber,
+  handleOnEnterKey,
+}) => {
   const [newService, setNewService] = useState({
     name: "",
     duration: "",
@@ -224,21 +264,27 @@ const AddNewServiceForm = ({ addService, idNumber, changeIdNumber }) => {
             onChange={e =>
               setNewService({ ...newService, name: e.target.value })
             }
+            onKeyDown={e => handleOnEnterKey(e, newService)}
           />
           <Input
-            placeholder="Amount"
+            placeholder="1 hour"
             onChange={e =>
               setNewService({ ...newService, duration: e.target.value })
             }
+            onKeyDown={e => handleOnEnterKey(e, newService)}
           />
 
-          <Input
-            placeholder="Rate"
-            prefix={<DollarOutlined twoToneColor="#52c41a" />}
+          <input
+            type="number"
+            name="Rate"
+            id=""
+            placeholder="90.00"
             onChange={e =>
-              setNewService({ ...newService, rate: e.target.value })
+              setNewService({ ...newService, rate: Number(e.target.value) })
             }
+            onKeyDown={e => handleOnEnterKey(e, newService)}
           />
+
           <Button
             type="primary"
             icon={<CheckCircleFilled />}
@@ -290,10 +336,13 @@ const styles = StyleSheet.create({
     backgroundColor: "grey",
     margin: "10px 0",
   },
+  textRight: {
+    textAlign: "right",
+  },
 })
 
 // Create Document Component
-export const MyDocument = ({ pdfData, services }) => {
+export const MyDocument = ({ pdfData, services, servicesTotal }) => {
   return (
     <Document
       title="Invoice"
@@ -319,7 +368,7 @@ export const MyDocument = ({ pdfData, services }) => {
           </View>
           <View style={styles.line} />
           {services.map(({ name, duration, rate }) => (
-            <View>
+            <View key={uuid()}>
               <View style={styles.flexDistribute}>
                 <Text style={{ width: "70%", paddingRight: 10 }}>{name}</Text>
                 <Text style={{ width: "15%" }}>{duration}</Text>
@@ -330,9 +379,11 @@ export const MyDocument = ({ pdfData, services }) => {
               <View style={styles.line} />
             </View>
           ))}
+          <Text style={{ marginTop: 30 }}>Payable to</Text>
+          <View style={{ ...styles.flexDistribute }}>
+            <Text>{pdfData.bank}</Text>
 
-          <View style={{ ...styles.section, marginTop: 20 }}>
-            <Text>Payable to {pdfData.bank}</Text>
+            <Text>Total: ${servicesTotal}</Text>
           </View>
         </View>
       </Page>
@@ -359,3 +410,9 @@ const month = monthNames[dateObj.getMonth()]
 const day = String(dateObj.getDate()).padStart(2, "0")
 const year = dateObj.getFullYear()
 const dateOutput = day + " " + month + " " + year
+
+const array1 = [3, 3, 3, 3]
+
+const reducer = (accumulator, currentValue) => accumulator + currentValue
+
+const summedNumber = array1.reduce(reducer)

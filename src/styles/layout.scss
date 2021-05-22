@@ -225,6 +225,7 @@ a {
 
 .flex {
   display: flex;
+  flex-wrap: wrap;
   &.justify-end {
     justify-content: flex-end;
   }
