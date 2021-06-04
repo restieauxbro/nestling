@@ -139,7 +139,7 @@ const ComeNestle = ({ link, day, time, location }) => {
           <div className="row-1">
             <h2>
               Come nestle with us <br />
-              <div className="online">Online!</div>
+              {/* <div className="online">Online!</div> */}
             </h2>
 
             <p>

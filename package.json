@@ -31,7 +31,8 @@
     "react-helmet": "^6.1.0",
     "react-use": "^17.2.0",
     "react-uuid": "^1.0.2",
-    "sass": "^1.32.5"
+    "sass": "^1.32.5",
+    "store": "^2.0.12"
   },
   "devDependencies": {
     "prettier": "2.2.1"

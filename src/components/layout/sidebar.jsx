@@ -56,7 +56,7 @@ const Sidebar = () => {
                 transition: { duration: 1.5, ease: easeOut, delay: 9 },
               }}
             >
-              Upcoming online workshop
+              Upcoming workshop in Auckland
             </motion.div>
           </div>
         </div>

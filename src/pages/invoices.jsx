@@ -8,6 +8,7 @@ import {
   StyleSheet,
   PDFViewer,
   PDFDownloadLink,
+  pdf,
 } from "@react-pdf/renderer"
 import "../styles/App.less"
 import "../styles/pdf-maker.scss"
@@ -19,6 +20,7 @@ import {
   DollarOutlined,
 } from "@ant-design/icons"
 import uuid from "react-uuid"
+import store from "store"
 
 const PDFmaker = () => {
   const [pdfData, setPdfData] = useState({
@@ -53,6 +55,8 @@ const PDFmaker = () => {
       message: dataInWaiting.message,
       bank: dataInWaiting.bank,
     })
+    store.set("pdf-data", pdfData)
+    console.log(store.get("pdf-data"))
   }
 
   const [services, changeServicesList] = useState([
@@ -149,7 +153,7 @@ const PDFmaker = () => {
                       deleteService={deleteService}
                     />
                   ))}
-                 
+
                   <AddNewServiceForm
                     addService={addService}
                     idNumber={idNumber}
@@ -169,22 +173,32 @@ const PDFmaker = () => {
                     }
                   />
                 </form>
-                {isClient && (
-                  <PDFDownloadLink
-                    document={
-                      <MyDocument pdfData={pdfData} services={services} />
-                    }
-                    fileName={`invoice ${pdfData.date}.pdf`}
-                  >
-                    <Button
-                      size="large"
-                      type="primary"
-                      icon={<DownloadOutlined />}
+                <div className="flex  align-center">
+                  {isClient && (
+                    <PDFDownloadLink
+                      document={
+                        <MyDocument
+                          pdfData={pdfData}
+                          services={services}
+                          serviceTotal={serviceTotal}
+                        />
+                      }
+                      fileName={`invoice ${pdfData.date}.pdf`}
                     >
-                      Download
-                    </Button>
-                  </PDFDownloadLink>
-                )}
+                      <Button
+                        size="large"
+                        type="primary"
+                        icon={<DownloadOutlined />}
+                        style={{ marginRight: 10 }}
+                      >
+                        Download
+                      </Button>
+                    </PDFDownloadLink>
+                  )}
+                  <div className="subtitle">
+                    Total: ${serviceTotal.toFixed(2)}
+                  </div>
+                </div>
               </motion.div>
             </AnimateSharedLayout>
           </div>
@@ -192,7 +206,11 @@ const PDFmaker = () => {
         <div className="column-2">
           {isClient && (
             <PDFViewer style={{ width: "100%", height: "100vh" }}>
-              <MyDocument pdfData={pdfData} services={services} />
+              <MyDocument
+                pdfData={pdfData}
+                services={services}
+                serviceTotal={serviceTotal}
+              />
             </PDFViewer>
           )}
         </div>
@@ -206,7 +224,7 @@ const Service = ({ deleteService, description, duration, rate, id }) => {
     <motion.div id={id} className="service">
       <div>{description}</div>
       <div>{duration}</div>
-      <div>${rate}</div>
+      <div>${rate.toFixed(2)}</div>
       <div></div>
       <div className="exit-button" onClick={() => deleteService(id)}>
         +
@@ -215,13 +233,19 @@ const Service = ({ deleteService, description, duration, rate, id }) => {
   )
 }
 
-const AddNewServiceForm = ({ addService, idNumber, changeIdNumber, handleOnEnterKey }) => {
+const AddNewServiceForm = ({
+  addService,
+  idNumber,
+  changeIdNumber,
+  handleOnEnterKey,
+}) => {
   const [newService, setNewService] = useState({
     name: "",
     duration: "",
     rate: 0,
     id: "service-2",
   })
+
   return (
     <>
       <form className="add-new-cnt">
@@ -246,7 +270,10 @@ const AddNewServiceForm = ({ addService, idNumber, changeIdNumber, handleOnEnter
             placeholder="Rate"
             prefix={<DollarOutlined twoToneColor="#52c41a" />}
             onChange={e =>
-              setNewService({ ...newService, rate: Number(e.target.value) })
+              setNewService({
+                ...newService,
+                rate: Number(e.target.value),
+              })
             }
             onKeyDown={e => handleOnEnterKey(e, newService)}
           />
@@ -301,10 +328,13 @@ const styles = StyleSheet.create({
     backgroundColor: "grey",
     margin: "10px 0",
   },
+  alignRight: {
+    textAlign: "right",
+  },
 })
 
 // Create Document Component
-export const MyDocument = ({ pdfData, services }) => {
+export const MyDocument = ({ pdfData, services, serviceTotal }) => {
   return (
     <Document
       title="Invoice"
@@ -335,13 +365,15 @@ export const MyDocument = ({ pdfData, services }) => {
                 <Text style={{ width: "70%", paddingRight: 10 }}>{name}</Text>
                 <Text style={{ width: "15%" }}>{duration}</Text>
                 <Text style={{ width: "15%", textAlign: "right" }}>
-                  ${rate}
+                  ${rate.toFixed(2)}
                 </Text>
               </View>
               <View style={styles.line} />
             </View>
           ))}
-
+          <View style={{ ...styles.alignRight, ...styles.section }}>
+            <Text>Total: ${serviceTotal.toFixed(2)}</Text>
+          </View>
           <View style={{ ...styles.section, marginTop: 20 }}>
             <Text>Payable to {pdfData.bank}</Text>
           </View>

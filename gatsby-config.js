@@ -2,11 +2,11 @@ module.exports = {
   siteMetadata: {
     title: `The Nestling Process`,
     description: `A conversation framework for fostering a deep sense of safety, trust, and love in relationships.`,
-    author: `@gatsbyjs`,
-    tickets: "https://www.trybooking.com/nz/events/landing?eid=4405&",
-    day: "Saturday 27 March",
-    time: "1:00PM to 3:30PM",
-    location: `We'll send you the link.`,
+    author: `Ari Amala`,
+    tickets: "https://www.trybooking.com/nz/events/landing?eid=4986&",
+    day: "Saturday 12 June",
+    time: "2:00PM to 5:00PM",
+    location: `MoveSpace, 473 Dominion Road, Mount Eden, Auckland`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
